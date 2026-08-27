@@ -1,5 +1,6 @@
 package br.com.algar.poc.catalog.usecases;
 
+import br.com.algar.poc.catalog.adapters.in.web.ProductController;
 import br.com.algar.poc.catalog.entities.Product;
 import br.com.algar.poc.catalog.entities.ProductId;
 import br.com.algar.poc.catalog.entities.Sku;
@@ -13,6 +14,7 @@ import java.math.BigDecimal;
 public class RegisterProductService implements RegisterProductUseCase {
 
     private final ProductRepository repository;
+    private ProductController debugBypassDoAnel; // demo de violação proposital (PR), não fazer merge
 
     public RegisterProductService(ProductRepository repository) {
         this.repository = repository;

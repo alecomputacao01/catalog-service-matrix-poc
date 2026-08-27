@@ -1,0 +1,31 @@
+name: build-and-archunit
+
+on:
+  push:
+    branches: [main, 'combo/**', 'demo/**']
+  pull_request:
+    branches: [main, 'combo/**']
+
+jobs:
+  build-test-archunit:
+    runs-on: ubuntu-latest
+    # Sem "services: postgres" aqui de propósito: o teste de integração usa Testcontainers
+    # (PostgreSQLContainer efêmero via Docker-in-Docker, já suportado nativamente em ubuntu-latest),
+    # não um container de serviço fixo — os dois mecanismos seriam redundantes.
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+
+      - name: Testes unitários e de aplicação (TDD)
+        run: mvn -B test -Dtest='!*IT,!*ArchitectureTest'
+
+      - name: Testes de integração (Testcontainers)
+        run: mvn -B test -Dtest='*IT'
+
+      - name: Validação arquitetural (ArchUnit)
+        run: mvn -B test -Dtest='*ArchitectureTest'

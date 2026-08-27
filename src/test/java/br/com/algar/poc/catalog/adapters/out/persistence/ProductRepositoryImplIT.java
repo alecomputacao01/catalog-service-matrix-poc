@@ -3,6 +3,7 @@ package br.com.algar.poc.catalog.adapters.out.persistence;
 import br.com.algar.poc.catalog.entities.Product;
 import br.com.algar.poc.catalog.entities.ProductId;
 import br.com.algar.poc.catalog.entities.Sku;
+import br.com.algar.poc.catalog.frameworks.CatalogServiceApplication;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * RELATORIO-EXECUCAO.md da raiz do projeto) — validado de verdade no GitHub Actions.
  */
 @Testcontainers
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, classes = CatalogServiceApplication.class)
 class ProductRepositoryImplIT {
 
     @Container
